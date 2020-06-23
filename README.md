@@ -1,6 +1,8 @@
 This project is built for [Play-for-the-Keep](https://blog.keep.network/how-to-play-for-keeps-297f246455d4)
 by Crypto_Investor
 
+Thanks All in Bit for code PR
+
 # tBTC Tracking Bot
 
 In the project directory, you can run

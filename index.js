@@ -5,6 +5,9 @@ const client = new Discord.Client();
 const dotenv = require('dotenv');
 
 const isTestnet = false; // choose testnet or mainnet
+const isLocal = false; // variable for local test environment
+
+const discordChannelId = isLocal ? '559027960456413216' : '723194152925397062';
 
 // load environment variable
 dotenv.config();
@@ -13,6 +16,8 @@ const token = process.env.discord_token;
 const { tweet } = require('./tweetbot.js');
 const systemABI = require('./abi/system.json');
 const tbtcABI = require('./abi/tbtc.json');
+
+const address0 = '0x0000000000000000000000000000000000000000';
 
 const explorer = isTestnet
   ? 'https://ropsten.etherscan.io/tx/'
@@ -38,18 +43,19 @@ const options = {
 
 const web3 = new Web3(new Web3.providers.WebsocketProvider(infuraWS, options));
 
-let systemAddress = isTestnet
-  ? '0x2b70907b5c44897030ea1369591ddcd23c5d85d6'
-  : '0x41a1b40c1280883ea14c6a71e23bb66b83b3fb59';
-
 let tBTCAddress = isTestnet
   ? '0x0c323687f7c539dfcea3c1f4b2c2a8e050977a52' // does not seem right?
   : '0x1bbe271d15bb64df0bc6cd28df9ff322f2ebd847';
 
+const eventQueue = [];
+var channel;
 const App = async () => {
   // setup discord client
+
   await client.login(token);
-  let channel = await client.channels.fetch('723194152925397062'); //;
+  channel = await client.channels.fetch(discordChannelId); //;
+
+  let intervalID = setInterval(processQueue, 1000);
 
   const instance = new web3.eth.Contract(tbtcABI, tBTCAddress);
   instance.events
@@ -62,34 +68,7 @@ const App = async () => {
       }
     )
     .on('data', async function (event) {
-      //console.log(event);
-      let rawvalue = new BigNumber(parseInt(event.returnValues.value));
-      let value = rawvalue.div(10 ** 18).toNumber();
-
-      if (value > 0.1) {
-        let from = event.returnValues.from.toLowerCase();
-        let to = event.returnValues.to.toLowerCase();
-
-        let txId = event.transactionHash;
-
-        if (from === '0x0000000000000000000000000000000000000000') {
-          let message = `👀👀 ${value} tBTC has just been minted ${
-            explorer + txId
-          } #tBTC #KeepNetwork`;
-          console.log(message);
-          tweet(message);
-          channel.send(message);
-        }
-
-        if (to === '0x0000000000000000000000000000000000000000') {
-          let message = ` 🔥🔥🔥 ${value} tBTC has just been burned ${
-            explorer + txId
-          } #tBTC #KeepNetwork`;
-          console.log(message);
-          tweet(message);
-          channel.send(message);
-        }
-      }
+      eventQueue.push(event);
     })
     .on('connected', () => {
       console.log('connected to websocket');
@@ -98,5 +77,34 @@ const App = async () => {
       console.log('Event Error', error);
     });
 };
+
+function processQueue() {
+  if (!eventQueue.length) return;
+  let event = eventQueue.shift();
+  let formatedTX;
+  let txURL = `${explorer}${event.transactionHash}`;
+  let from = event.returnValues.from.toLowerCase();
+  let to = event.returnValues.to.toLowerCase();
+  let rawvalue = new BigNumber(parseInt(event.returnValues.value));
+  let value = rawvalue.div(10 ** 18).toNumber();
+
+  if (value > 0.1) {
+    if (from === address0) {
+      formatedTX = `🚨 ${value} #tBTC has been minted! 💎\n ${txURL}`;
+    } else if (to === address0) {
+      formatedTX = `🚨 ${value} #tBTC has been burned! 🔥\n ${txURL}`;
+    } else {
+      return;
+    }
+
+    if (!isLocal) {
+      tweet(formatedTX);
+    }
+    channel.send(formatedTX);
+    console.log(formatedTX);
+    return;
+  }
+  return;
+}
 
 App();
