@@ -44,7 +44,7 @@ const options = {
 const web3 = new Web3(new Web3.providers.WebsocketProvider(infuraWS, options));
 
 let tBTCAddress = isTestnet
-  ? '0x70914770f2063e9968F7d1baB5bFF95ED47191f9'
+  ? '0xa609f2c9C5B7873F353C15D4ef6e151D14db69CC'
   : '0x1bbe271d15bb64df0bc6cd28df9ff322f2ebd847';
 
 const eventQueue = [];
@@ -88,7 +88,7 @@ function processQueue() {
   let rawvalue = new BigNumber(parseInt(event.returnValues.value));
   let value = rawvalue.div(10 ** 18).toNumber();
 
-  if (value > 0.0099) {
+  if (value > 0.00099) {
     if (from === address0) {
       formatedTX = `🚨 ${value} #tBTC has been minted! 💎\n ${txURL}`;
     } else if (to === address0) {
