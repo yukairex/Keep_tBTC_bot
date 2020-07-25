@@ -5,7 +5,7 @@ const client = new Discord.Client();
 const dotenv = require('dotenv');
 
 const isTestnet = true; // choose testnet or mainnet
-const isLocal = true; // variable for local test environment
+const isLocal = false; // variable for local test environment
 
 const discordChannelId = isLocal ? '559027960456413216' : '723194152925397062';
 
