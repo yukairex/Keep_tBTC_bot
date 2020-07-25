@@ -60,7 +60,7 @@ const App = async () => {
   client.on('message', async (message) => {
     if (message.author.bot) return;
 
-    if (message.content == 'deposit') {
+    if (message.content == '!deposit') {
       try {
         let isNewDepositAllowed = await instance.methods
           .getAllowNewDeposits()
