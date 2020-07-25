@@ -66,7 +66,7 @@ const App = async () => {
           .getAllowNewDeposits()
           .call();
         console.log('is new deposit allowed', isNewDepositAllowed);
-        if (isNewDepositAllowed) message.reply('deposit allowed');
+        if (isNewDepositAllowed) message.reply('deposit is allowed');
         else message.reply('deposit is NOT allowed');
       } catch (err) {
         console.log(err);

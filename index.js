@@ -55,7 +55,7 @@ const App = async () => {
   await client.login(token);
   channel = await client.channels.fetch(discordChannelId); //;
 
-  let intervalID = setInterval(processQueue, 1000);
+  let intervalID = setInterval(processQueue, 10000);
 
   const instance = new web3.eth.Contract(tbtcABI, tBTCAddress);
   instance.events
@@ -88,7 +88,7 @@ function processQueue() {
   let rawvalue = new BigNumber(parseInt(event.returnValues.value));
   let value = rawvalue.div(10 ** 18).toNumber();
 
-  if (value > 0.1) {
+  if (value > 0.0099) {
     if (from === address0) {
       formatedTX = `🚨 ${value} #tBTC has been minted! 💎\n ${txURL}`;
     } else if (to === address0) {
