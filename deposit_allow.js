@@ -45,7 +45,7 @@ const options = {
 const web3 = new Web3(infura);
 
 let tBTCSystemAddress = isTestnet
-  ? '0x14dC06F762E7f4a756825c1A1dA569b3180153cB'
+  ? '0x9F3B3bCED0AFfe862D436CB8FF462a454040Af80'
   : '0x1bbe271d15bb64df0bc6cd28df9ff322f2ebd847';
 
 var channel;

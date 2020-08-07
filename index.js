@@ -44,7 +44,7 @@ const options = {
 const web3 = new Web3(new Web3.providers.WebsocketProvider(infuraWS, options));
 
 let tBTCAddress = isTestnet
-  ? '0xa609f2c9C5B7873F353C15D4ef6e151D14db69CC'
+  ? '0x179eabC663E7d282eF1d25bfcBdA19e5d210E7D7'
   : '0x1bbe271d15bb64df0bc6cd28df9ff322f2ebd847';
 
 const eventQueue = [];
