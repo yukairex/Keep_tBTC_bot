@@ -48,6 +48,10 @@ let tBTCSystemAddress = isTestnet
   ? '0x9F3B3bCED0AFfe862D436CB8FF462a454040Af80'
   : '0x1bbe271d15bb64df0bc6cd28df9ff322f2ebd847';
 
+let tBTCAddress = isTestnet
+  ? '0x179eabC663E7d282eF1d25bfcBdA19e5d210E7D7'
+  : '0x1bbe271d15bb64df0bc6cd28df9ff322f2ebd847';
+
 var channel;
 const App = async () => {
   // setup discord client
@@ -62,12 +66,13 @@ const App = async () => {
 
     if (message.content == '!deposit') {
       try {
-        let isNewDepositAllowed = await instance.methods
-          .getAllowNewDeposits()
-          .call();
-        console.log('is new deposit allowed', isNewDepositAllowed);
-        if (isNewDepositAllowed) message.reply('deposit is allowed');
-        else message.reply('deposit is NOT allowed');
+        // depreciate
+        // let isNewDepositAllowed = await instance.methods
+        //   .getAllowNewDeposits()
+        //   .call();
+        // console.log('is new deposit allowed', isNewDepositAllowed);
+        // if (isNewDepositAllowed) message.reply('deposit is allowed');
+        // else message.reply('deposit is NOT allowed');
       } catch (err) {
         console.log(err);
       }
