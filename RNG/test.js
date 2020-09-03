@@ -35,9 +35,10 @@ const App = async () => {
   console.log(ethers.utils.formatEther(entryFee));
 
   // try to get a random number
-  await serviceContract.methods
+  const value = await serviceContract.methods
     .requestRelayEntry()
     .send({ from: web3.eth.defaultAccount, value: entryFee, gas: 2e6 });
+  console.log(value.events.args[1]);
 };
 
 App();
