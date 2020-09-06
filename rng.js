@@ -46,7 +46,7 @@ const App = async () => {
   // initiate contract
   const serviceContract = new web3.eth.Contract(
     RandomBeaconImpl.abi,
-    RandomBeaconService.networks['3'].address
+    '0x6c04499b595efdc28cdbed3f9ed2e83d7dccc717'
   );
 
   serviceContract.events
@@ -98,6 +98,7 @@ function processQueue() {
     formatedTX = `Request **${requestId}** on random beacon chain generates ${number} 🔢\n ${txURL}`;
     //console.log(formatedTX)
   }
+  console.log(formatedTX);
   channel.send(formatedTX);
   return;
 }
