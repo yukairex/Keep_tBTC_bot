@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const dotenv = require('dotenv');
 
-const isTestnet = true; // choose testnet or mainnet
+const isTestnet = false; // choose testnet or mainnet
 const isLocal = false; // variable for local test environment
 
 const discordChannelId = isLocal ? '559027960456413216' : '723194152925397062';
@@ -45,7 +45,7 @@ const web3 = new Web3(new Web3.providers.WebsocketProvider(infuraWS, options));
 
 let tBTCAddress = isTestnet
   ? '0x7c07C42973047223F80C4A69Bb62D5195460Eb5F'
-  : '0x1bbe271d15bb64df0bc6cd28df9ff322f2ebd847';
+  : '0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa';
 
 const eventQueue = [];
 var channel;
@@ -98,7 +98,7 @@ function processQueue() {
     }
 
     if (!isLocal) {
-      tweet(formatedTX);
+      //tweet(formatedTX);
       channel.send(formatedTX);
     }
 
