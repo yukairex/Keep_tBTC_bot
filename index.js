@@ -61,7 +61,7 @@ const App = async () => {
   instance.events
     .Transfer(
       {
-        fromBlock: '10889657',
+        fromBlock: 'latest',
       },
       function (err) {
         if (err != null) console.log(err);
