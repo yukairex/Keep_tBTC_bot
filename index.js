@@ -61,7 +61,7 @@ const App = async () => {
   instance.events
     .Transfer(
       {
-        fromBlock: '10700000',
+        fromBlock: 'latest',
       },
       function (err) {
         if (err != null) console.log(err);
@@ -99,7 +99,7 @@ function processQueue() {
 
     if (!isLocal) {
       tweet(formatedTX);
-      channel.send(formatedTX);
+      //channel.send(formatedTX);
     }
 
     console.log(formatedTX);
