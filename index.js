@@ -99,7 +99,7 @@ function processQueue() {
 
     if (!isLocal) {
       tweet(formatedTX);
-      //channel.send(formatedTX);
+      channel.send(formatedTX);
     }
 
     console.log(formatedTX);
