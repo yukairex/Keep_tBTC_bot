@@ -90,9 +90,9 @@ function processQueue() {
 
   if (value > 0.00099) {
     if (from === address0) {
-      formatedTX = `🚨 **Mainnet** ${value} #tBTC has been minted !!! 💎\n ${txURL}`;
+      formatedTX = `🚨 **Mainnet** ${value} #tBTC has been minted !!! 💎\n <${txURL}>`;
     } else if (to === address0) {
-      formatedTX = `🚨 **Mainnet** ${value} #tBTC has been burned! 🔥\n ${txURL}`;
+      formatedTX = `🚨 **Mainnet** ${value} #tBTC has been burned! 🔥\n <${txURL}>`;
     } else {
       return;
     }
